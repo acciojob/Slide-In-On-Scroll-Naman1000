@@ -58,6 +58,29 @@
       };
     }
 
+	   // Select all images to apply slide-in effect
+  const sliderImages = document.querySelectorAll('.slide-in');
+
+  function checkSlide() {
+    sliderImages.forEach(image => {
+      // Scroll trigger: when image is halfway shown
+      const slideInAt = window.scrollY + window.innerHeight - image.height / 2;
+      const imageBottom = image.offsetTop + image.height;
+
+      const isHalfShown = slideInAt > image.offsetTop;
+      const isNotScrolledPast = window.scrollY < imageBottom;
+
+      if (isHalfShown && isNotScrolledPast) {
+        image.classList.add('active');
+      } else {
+        image.classList.remove('active');
+      }
+    });
+  }
+
+  // Add scroll listener with debounce
+  window.addEventListener('scroll', debounce(checkSlide));
+
   </script>
 
   <style>
